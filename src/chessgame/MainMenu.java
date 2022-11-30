@@ -1,12 +1,17 @@
 package chessgame;
 
 import org.lwjgl.opengl.GL46;
+
 import util.Scene;
 import util.Texture;
 import util.UI;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+
+import util.*;
+
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
@@ -40,6 +45,7 @@ public class MainMenu extends Scene{
         GL46.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         GL46.glLoadIdentity();
         getBackground().draw(0,0,600,600);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

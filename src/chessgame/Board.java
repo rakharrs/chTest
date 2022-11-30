@@ -1,5 +1,6 @@
 package chessgame;
 
+import online.ConnectionManager;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL46;
 import util.Coord2d;
@@ -15,28 +16,36 @@ import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import java.util.ArrayList;
+
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL46.*;
 import static org.lwjgl.stb.STBEasyFont.stb_easy_font_print;
 
 public class Board extends Scene {
     chessLogic logic;
 
+    private boolean host;
     private Coord2d selectedPiece;
     Texture background = new Texture("assets/img/menu/chessimg.png");
 
     private Player player1 = new Player("Player1", PieceColor.WHITE); //By default white
     private Player player2 = new Player("Player2", PieceColor.BLACK); //By default black
+    ConnectionManager client;
 
     private Player turn = player1;
     private int caseWidth;
     private int caseHeight;
 
-    public Board(int caseWidth, int caseHeight){
+
+    public Board(int caseWidth, int caseHeight, boolean host) throws Exception {
 
         //index 0 -> black && index 1 -> white
         setLogic(new chessLogic(new Piece[8][8]));
+        setHost(host);
 
         initPieces();
+        setClient(new ConnectionManager(isHost()));
 
         setCaseWidth(caseWidth);
         setCaseHeight(caseHeight);
@@ -140,6 +149,7 @@ public class Board extends Scene {
             int y1 = caseHeight * moves.get(i).getY();
             int y2 = caseWith * (moves.get(i).getY() + 1);
             GL46.glBegin(GL_QUADS);
+            GL46.glBegin(GL_TRIANGLE_STRIP);
 
             GL46.glColor4f(0.5f, 0.5f, 0.5f, 1f);
             GL46.glVertex2i(x1 + (caseWith/4),y1+(caseHeight/4));
@@ -306,27 +316,50 @@ public class Board extends Scene {
     public Player getTurn() {
         return turn;
     }
-@Override
-    public void update(long window){
+
+
+    public boolean isHost() {
+        return host;
+    }
+
+    public void setHost(boolean host) {
+        this.host = host;
+    }
+
+    public Texture getBackground() {
+        return background;
+    }
+
+    public void setBackground(Texture background) {
+        this.background = background;
+    }
+
+    public ConnectionManager getClient() {
+        return client;
+    }
+
+    public void setClient(ConnectionManager client) {
+        this.client = client;
+    }
+
+    public void movePiece(long window){
         Coord2d mousePos;
         int newMouseState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1);
+
         if(newMouseState == GLFW_PRESS){
 
             mousePos = MpihainoMouse.getMousePos(window);
-            int X = (mousePos.getX()-50)/(500/8);
-            int Y = Math.abs((((mousePos.getY()-50)/(500/8))-7));
+            int X = (mousePos.getX())/(600/8);
+            int Y = Math.abs((((mousePos.getY())/(600/8))-7));
             if(this.getLogic().isPiece(X, Y) &&
                     this.getLogic().pieceColor(X, Y) == this.getTurn().getPieceColor()){
-                this.setSelectedPiece(new Coord2d((mousePos.getX()-50)/(500/8),Math.abs((((mousePos.getY()-50)/(500/8))-7))));
+                this.setSelectedPiece(new Coord2d(X,Y));
             }else{
                 if(this.getSelectedPiece() != null){
                     try {
                         this.move(this.getTurn(),this.getLogic().getPiece(this.getSelectedPiece()), new Coord2d(X, Y));
-                        if(this.getTurn() == this.getPlayer1()){
-                            this.setTurn(this.getPlayer2());
-                        }else{
-                            this.setTurn(this.getPlayer1());
-                        }
+
+                        swapTurn();
 
                     } catch (Exception e) {
 
@@ -341,11 +374,24 @@ public class Board extends Scene {
 
 
         }
+    }
+
+    public void swapTurn(){
+        if(this.getTurn() == this.getPlayer1()){
+            this.setTurn(this.getPlayer2());
+        }else{
+            this.setTurn(this.getPlayer1());
+        }
+    }
+@Override
+    public void update(long window){
+        movePiece(window);
 
         double now = glfwGetTime();
         GL46.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        GL46.glViewport(100, 100, 1000, 1000);
+        //GL46.glViewport(100, 100, 1000, 1000);
+
         //location and dimension of area to draw on within the display frame.
         GL46.glLoadIdentity();
         //rotate the following object about the z axis
@@ -358,6 +404,12 @@ public class Board extends Scene {
 
 
         this.drawSelectedMove();
+        this.drawSquares();
+        this.drawSelectedMove();
+        this.drawPieces();
+
+
+
 
         glfwSwapBuffers(window); // swap the color buffers
 
@@ -369,3 +421,4 @@ public class Board extends Scene {
         this.initPieceCoord();
     }
 }
+

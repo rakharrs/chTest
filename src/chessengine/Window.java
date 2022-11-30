@@ -35,17 +35,17 @@ public class Window {
 
 
 
-    private Window() {
+    private Window() throws Exception {
         init();
         setMenu(new MainMenu(new Texture("assets/img/menu/chessimg.png"), new UI()));
-        setScene(new Board(width/8, height/8));
+        setScene(new Board(width/8, height/8,true));
         scenes = new Scene[2];
         scenes[0] = getMenu();
         scenes[1] = getScene();
         loop();
     }
 
-    public static Window createWindow(){
+    public static Window createWindow() throws Exception {
         return new Window();
     }
 
@@ -70,7 +70,7 @@ public class Window {
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(getWindow(), (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE ){
+            if ( key == GLFW_KEY_ENTER && action == GLFW_RELEASE ){
                 if(current == 1){
                     current = 0;
                 }
