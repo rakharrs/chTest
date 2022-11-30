@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ConnectionManager extends Thread{
     boolean host;
     Socket client;
+    String packet = new String();
     ServerSocket listener = null;
     DataInputStream din;
     DataOutputStream dout;
@@ -19,6 +20,7 @@ public class ConnectionManager extends Thread{
             ServerSocket listener = null;
             try {
                 listener = new ServerSocket(7243);
+                System.out.println("ok");
                 setListener(listener);
                 this.start();
 
@@ -41,15 +43,28 @@ public class ConnectionManager extends Thread{
 
     public void run(){
         if(isHost()){
+            while(true){
+                try {
+                    Socket client = getListener().accept();
+                    setClient(client);
+                    setDataIO();
+
+                    getDin().readUTF();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }else{
             try {
-                Socket client = getListener().accept();
-                setClient(client);
-                setDataIO();
+                getDout().writeUTF(getPacket());
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+
+
     }
 
     public void setDataIO() throws IOException{
@@ -71,6 +86,14 @@ public class ConnectionManager extends Thread{
 
     public boolean isHost() {
         return host;
+    }
+
+    public String getPacket() {
+        return packet;
+    }
+
+    public void setPacket(String packet) {
+        this.packet = packet;
     }
 
     public void setHost(boolean host) {
