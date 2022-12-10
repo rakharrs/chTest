@@ -3,5 +3,4 @@
 RAKOTO HARISOA Rodolphe Yoann
 ETU 1999
 
-lwjgl library has too much .jar actually 98% are useless for this project
-remove useless jar soon
+Projet chess with socket // raha tsisy serveur hita dia tonga dia mandefa partie solo le client
