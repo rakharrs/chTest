@@ -1,25 +1,15 @@
-import chessengine.Window;
-import chessgame.PieceType;
-import online.server.GameServer;
+import chessengine.ChessFrame;
+import util.display.FrameMenu;
 
 import java.awt.*;
 
-public class Main extends Thread{
-    public  boolean online;
-
-    public Main(boolean Online){
-        online = Online;
-    }
-
-    public static void main(String[] args) throws Exception {
-
+public class Main {
+    public static void main(String[] args) throws  Exception{
         System.setProperty("sun.java2d.opengl", "true");
 
-        Window wind = Window.createWindow(true,true,"localhost");
+        new FrameMenu();
+        //ChessFrame.createChess(false, "localhost");
 
-    }
-
-    public void run(){
 
     }
 }

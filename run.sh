@@ -1,2 +1,1 @@
-cd out;
-java -cp ".:../lib/*" -XstartOnFirstThread Main;
+java -cp Main;
