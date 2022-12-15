@@ -16,7 +16,7 @@ public class MakeClient implements MouseInputListener {
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        ChessFrame.createChess(true, false, pane.getAddrInput().getText());
+        ChessFrame.createChess(true, false, pane.getInput().getText());
 
         pane.dispose();
     }

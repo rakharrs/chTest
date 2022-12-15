@@ -15,9 +15,17 @@ public class GameServer implements Runnable{
 
     private ArrayList<ClientHandler> clients;
     public static final int port = 7243;
+    private int portPers;
     boolean full = false;
 
     public GameServer(){
+        setPort(port);
+        this.board = new JBoard();
+        setClients(new ArrayList<>());
+    }
+
+    public GameServer(int port){
+        setPort(port);
         this.board = new JBoard();
         setClients(new ArrayList<>());
     }
@@ -109,5 +117,13 @@ public class GameServer implements Runnable{
 
     public void setFull(boolean full) {
         this.full = full;
+    }
+
+    public int getPort() {
+        return portPers;
+    }
+
+    public void setPort(int portPers) {
+        this.portPers = portPers;
     }
 }

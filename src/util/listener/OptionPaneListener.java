@@ -59,7 +59,7 @@ public class OptionPaneListener implements MouseInputListener {
             }
             case "CLIENT"->{
                 //ChessFrame.createChess(true, false, "localhost");
-                new SetAdress();
+                new SetAdress("Sorato ny ip anle host");
 
                 panel.getFrame().dispose();
                 break;

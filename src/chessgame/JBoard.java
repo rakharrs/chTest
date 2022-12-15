@@ -180,11 +180,22 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
                 int y1=caseHeight*j; int y2=caseHeight*(j+1);
 
                 if((i+j)%2==0){
+
+                    if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+
+                        g.setColor(Color.WHITE);
+                    }
+
                     g.setColor(Color.lightGray);
 
                 }else{
-                    g.setColor(Color.WHITE);
 
+                    if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+
+                        g.setColor(Color.lightGray);
+                    }
+
+                    g.setColor(Color.WHITE);
                 }
 
                 g.fillRect(x1, y1, x2-x1, y2-y1);

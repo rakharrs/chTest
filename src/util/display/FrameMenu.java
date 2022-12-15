@@ -26,7 +26,7 @@ public class FrameMenu extends JFrame{
         setCardLayout(cardLayout);
 
         OptionPanel popo = new OptionPanel(this, "SINGLEPLAYER", "MULTIPLAYER", "EXIT");
-        OptionPanel popo2 = new OptionPanel(this, "HOST", "CLIENT", "BACK", "EXIT");
+        OptionPanel popo2 = new OptionPanel(this, "HOST", "CLIENT", "SEARCH ONLINE", "BACK", "EXIT");
         popo.addMouseMotionListener(new OptionPaneListener(popo));
         popo.addMouseListener(new OptionPaneListener(popo));
 

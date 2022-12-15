@@ -5,6 +5,7 @@ import chessgame.PieceColor;
 import chessgame.Player;
 import util.BoardScene;
 import util.Coord2d;
+import util.exception.WrongRequestException;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -104,39 +105,51 @@ public class ClientHandler extends Thread{
 
         String req = request;
         output.reset();
-        if(req.startsWith("SELECT")){
-            if(getServer().getClients().size()!=2){
-                return;
-            }
+        try{
+            if(req.startsWith("SELECT")){
+                if(getServer().getClients().size()!=2){
+                    return;
+                }
 
-            String[] splitted = req.split("//");
+                String[] splitted = req.split("//");
 
-            Player player = getBoard().getPlayerByColor(Integer.parseInt(splitted[1]));
+                if(splitted.length != 4){
+                    throw new WrongRequestException("wrong request");
+                }
 
-            int[] pieceCoord = parseInteger(splitted[2].split("/"));        /// Coordonnées anle piece
-            int[] targetCoord = parseInteger(splitted[3].split("/"));       /// Coordonnées tianle piece hietsehana
+                Player player = getBoard().getPlayerByColor(Integer.parseInt(splitted[1]));
 
-            Piece movedPiece = board.getLogic().getPiece(pieceCoord[0], pieceCoord[1]);
-            Coord2d target = new Coord2d(targetCoord[0], targetCoord[1]);
+                int[] pieceCoord = parseInteger(splitted[2].split("/"));        /// Coordonnées anle piece
+                int[] targetCoord = parseInteger(splitted[3].split("/"));       /// Coordonnées tianle piece hietsehana
 
-            try{
-                board.turnMove(player, movedPiece, target);
-                board.initPieceCoord();
+                Piece movedPiece = board.getLogic().getPiece(pieceCoord[0], pieceCoord[1]);
+                Coord2d target = new Coord2d(targetCoord[0], targetCoord[1]);
 
-            }catch (Exception exception){
-                System.out.println(exception);
-                flag = true;
-            }
+                try{
+                    board.turnMove(player, movedPiece, target);
+                    board.initPieceCoord();
 
-            output.reset();
-            if(!flag){
-                writeUTFtoAll("CHESS-BOARD");
-                writeToAll(getBoard().getLogic());
+                }catch (Exception exception){
+                    System.out.println(exception);
+                    flag = true;
+                }
+
                 output.reset();
-            }
-            flag = false;
+                if(!flag){
 
+                    writeUTFtoAll("CHESS-BOARD");
+                    writeToAll(getBoard().getLogic());
+                    output.reset();
+                }
+                flag = false;
+
+            }
+        }catch (WrongRequestException wre){
+
+            writeUTFtoAll("REQUEST ERROR");
+            output.reset();
         }
+
     }
 
     public void writeToAll(Object o) throws Exception {

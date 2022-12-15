@@ -49,7 +49,7 @@ public class BoardInteraction implements MouseInputListener {
             //piece.getTexture().setY(Math.abs(e.getY()-600)-25);
         }
 
-        getBoard().flag = true;
+        //getBoard().flag = true;
         getBoard().update();
 
     }
@@ -84,6 +84,16 @@ public class BoardInteraction implements MouseInputListener {
             }
 
         }
+
+        Piece piece = getBoard().getLogic().getPiece(getBoard().getSelectedPiece());
+
+        if(piece != null && piece.getColor() != PieceColor.UNSET){
+            piece.getTexture().setX(e.getX()-40);
+
+            piece.getTexture().setY(e.getY()-25);
+            //piece.getTexture().setY(Math.abs(e.getY()-600)-25);
+        }
+
         getBoard().update();
 
         getBoard().flag = true;

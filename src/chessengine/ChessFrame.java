@@ -1,6 +1,7 @@
 package chessengine;
 
 import chessgame.JBoard;
+import chessgame.PieceColor;
 import online.server.GameServer;
 import util.listener.BoardInteraction;
 
@@ -76,6 +77,38 @@ public class ChessFrame extends JFrame implements Runnable{
         setSize(getWidht(), getHeight());
         setVisible(true);
     }
+    public void drawSquares(Graphics g){
+
+        int caseWith = getBoard().getCaseWidth();
+        int caseHeight = getBoard().getCaseHeight();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                int x1=caseWith*i; int x2=caseWith*(i+1);
+                int y1=caseHeight*j; int y2=caseHeight*(j+1);
+
+                if((i+j)%2==0){
+
+                    if(getBoard().getClient() != null && getBoard().getClient().getPieceColor()== PieceColor.BLACK){
+
+                        g.setColor(Color.WHITE);
+                    }
+
+                    g.setColor(Color.lightGray);
+
+                }else{
+
+                    if(getBoard().getClient() != null && getBoard().getClient().getPieceColor()==PieceColor.BLACK){
+
+                        g.setColor(Color.lightGray);
+                    }
+
+                    g.setColor(Color.WHITE);
+                }
+
+                g.fillRect(x1, y1, x2-x1, y2-y1);
+            }
+        }
+    }
 
     public JBoard getBoard() {
         return JBoard;
@@ -85,7 +118,6 @@ public class ChessFrame extends JFrame implements Runnable{
         this.JBoard = JBoard;
     }
 
-    @Override
     public int getHeight() {
         return height;
     }

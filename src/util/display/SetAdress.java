@@ -7,18 +7,18 @@ import java.awt.*;
 
 public class SetAdress extends JFrame {
     String ip;
-    JTextField addrInput;
+    JTextField input;
 
-    public SetAdress(){
-        setTitle("Sorato ny ip anle host");
+    public SetAdress(String title){
+        setTitle(title);
         JTextField AddrInput = new JTextField();
-        setAddrInput(AddrInput);
+        setInput(AddrInput);
         JButton button = new JButton("ok");
         button.addMouseListener(new MakeClient(this));
         JPanel jp = new JPanel();
         jp.setLayout(new GridLayout(2,1));
 
-        jp.add(getAddrInput());
+        jp.add(getInput());
         jp.add(button);
 
         add(jp);
@@ -35,11 +35,11 @@ public class SetAdress extends JFrame {
         this.ip = ip;
     }
 
-    public JTextField getAddrInput() {
-        return addrInput;
+    public JTextField getInput() {
+        return input;
     }
 
-    public void setAddrInput(JTextField addrInput) {
-        this.addrInput = addrInput;
+    public void setInput(JTextField addrInput) {
+        this.input = input;
     }
 }
