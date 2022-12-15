@@ -1,1 +1,2 @@
-java -cp Main;
+cd ./out;
+java Main;
