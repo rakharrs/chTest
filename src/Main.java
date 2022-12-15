@@ -8,8 +8,5 @@ public class Main {
         System.setProperty("sun.java2d.opengl", "true");
 
         new FrameMenu();
-        //ChessFrame.createChess(false, "localhost");
-
-
     }
 }

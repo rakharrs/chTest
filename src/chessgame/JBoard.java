@@ -156,7 +156,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
             int y1 = caseHeight * (Math.abs(moves.get(i).getY() - 7));
             int y2 = caseWith * (Math.abs(moves.get(i).getY() - 1 - 7));
 
-            if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+            if(getClient() != null && getClient().getPieceColor()==PieceColor.WHITE){
 
                 y1 = caseHeight * moves.get(i).getY();
                 y2 = caseWith * (moves.get(i).getY() + 1);
@@ -284,7 +284,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
                     if(getPieces()[i][j] != getLogic().getPiece(getSelectedPiece())){
                         int x = i*getCaseWidth();
                         int y = Math.abs((j*getCaseHeight())-(7*getCaseHeight()));
-                        if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+                        if(getClient() != null && getClient().getPieceColor()==PieceColor.WHITE){
                             y = j*getCaseHeight();
 
                         }
@@ -303,7 +303,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
                 if(getPieces()[i][j].getType() != PieceType.NONE){
                     int x = i*getCaseWidth();
                     int y = Math.abs((j*getCaseHeight())-(7*getCaseHeight()));
-                    if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+                    if(getClient() != null && getClient().getPieceColor()==PieceColor.WHITE){
                         y = j*getCaseHeight();
 
                     }
@@ -418,6 +418,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
         setLogic((chessLogic) getClient().getInput().readObject());
         setShouldInit(true);
         initPiecesTexture();
+        update();
         //setShouldInit(false);
         //resetAndInitPiecesTexture();
         //initPiecesTexture();
