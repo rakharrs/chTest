@@ -22,7 +22,7 @@ public class BoardInteraction implements MouseInputListener {
         int X = (e.getX())/(600/8);
         int Y = Math.abs((e.getY())/(600/8) - 7);
 
-        if(getBoard().getClient() != null && getBoard().getClient().getPieceColor()==PieceColor.WHITE){
+        if(getBoard().getClient() != null && getBoard().getClient().getPieceColor()==PieceColor.BLACK){
             Y = (e.getY())/(600/8);
         }
 

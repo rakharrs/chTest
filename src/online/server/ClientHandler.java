@@ -105,6 +105,9 @@ public class ClientHandler extends Thread{
         String req = request;
         output.reset();
         if(req.startsWith("SELECT")){
+            if(getServer().getClients().size()!=2){
+                return;
+            }
 
             String[] splitted = req.split("//");
 
