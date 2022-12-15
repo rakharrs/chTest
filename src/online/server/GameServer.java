@@ -34,6 +34,10 @@ public class GameServer implements Runnable{
     public void run() {
         try {
             server = new ServerSocket(GameServer.port);
+            PieceColor pc = PieceColor.WHITE;
+            /*while(getClients().size() < 2){
+
+            }*/
             System.out.println("ok");
 
                 System.out.println("Waiting Connection");
@@ -45,6 +49,7 @@ public class GameServer implements Runnable{
 
                 handler.getOutput().writeUTF("SET COLOR//" + PieceColor.WHITE.ordinal());
                 handler.getOutput().flush();
+                handler.getOutput().reset();
 
                 System.out.println("WHITE connected");
 
@@ -59,9 +64,9 @@ public class GameServer implements Runnable{
 
                 ClientHandler handler2 = new ClientHandler(this, client2, board, PieceColor.BLACK);
 
-                handler.getOutput().writeUTF("SET COLOR//" + PieceColor.BLACK.ordinal());
-                handler.getOutput().flush();
-                handler.getOutput().reset();
+                handler2.getOutput().writeUTF("SET COLOR//" + PieceColor.BLACK.ordinal());
+                handler2.getOutput().flush();
+                handler2.getOutput().reset();
 
                 System.out.println("BLACK connected");
 
