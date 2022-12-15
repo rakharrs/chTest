@@ -56,7 +56,7 @@ public class BoardInteraction implements MouseInputListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        getBoard().update();
     }
 
     @Override

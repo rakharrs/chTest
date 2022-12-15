@@ -17,7 +17,7 @@ public class FrameMenu extends JFrame{
     MyTexture backgroundImg = new JChessTexture("assets/img/menu/chessimg.png");
 
     public FrameMenu(){
-        setSize(600,627);
+        setSize(600,600);
         CardLayout cardLayout = new CardLayout();
         setLayout(cardLayout);
 

@@ -21,7 +21,8 @@ public class ChessFrame extends JFrame implements Runnable{
     public ChessFrame(boolean online, String hostip) throws Exception{
         createChessFrame();
         setLayout(null);
-        setSize(600,627);
+        setSize(600,600);
+        setMaximumSize(new Dimension(600,630));
 
         setBoard(new JBoard(this, getWidht()/8, getHeight()/8, online, hostip));
 
@@ -33,7 +34,7 @@ public class ChessFrame extends JFrame implements Runnable{
         add(getBoard());
         //getBoard().setBounds(0, 0, 600, 600);
 
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(3);
 
         getBoard().update();
