@@ -30,13 +30,15 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     private int caseHeight;
 
     private Receiver receiver;
+    JFrame frame;
 
     public boolean flag = false;
 
 
-    public JBoard(int caseWidth, int caseHeight, boolean online, String hostIp) throws Exception {
+    public JBoard(JFrame frame, int caseWidth, int caseHeight, boolean online, String hostIp) throws Exception {
 
         //index 0 -> black && index 1 -> white
+        setFrame(frame);
         setLogic(new chessLogic(new Piece[8][8]));
 
         setOnline(online);
@@ -121,6 +123,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
 
         resetPiecesTexture();
+
 
         checkPromotion(piece, coord);
         swapTurn();
@@ -471,6 +474,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     public void update(){
         initPT();
         setTurn(getLogic().getTurn().ordinal());
+        getFrame().setTitle("Turn for "+getTurn().getPieceColor().toString());
 
         repaint();
 
@@ -550,5 +554,12 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
         this.shouldInit = shouldInit;
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
 }
 

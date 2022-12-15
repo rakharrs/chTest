@@ -23,7 +23,7 @@ public class ChessFrame extends JFrame implements Runnable{
         setLayout(null);
         setSize(600,627);
 
-        setBoard(new JBoard(getWidht()/8, getHeight()/8, online, hostip));
+        setBoard(new JBoard(this, getWidht()/8, getHeight()/8, online, hostip));
 
 
         BoardInteraction bi = new BoardInteraction(getBoard());
