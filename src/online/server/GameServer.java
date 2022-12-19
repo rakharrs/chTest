@@ -36,7 +36,7 @@ public class GameServer implements Runnable{
     public void run() {
         try {
             server = new ServerSocket(getPort());
-            PieceColor pc = PieceColor.WHITE;
+
             /*while(getClients().size() < 2){
 
             }*/

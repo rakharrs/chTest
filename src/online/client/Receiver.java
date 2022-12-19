@@ -2,6 +2,7 @@ package online.client;
 
 import chessgame.PieceColor;
 import util.BoardScene;
+import util.display.EndGameFrame;
 
 import javax.swing.*;
 
@@ -54,11 +55,11 @@ public class Receiver extends Thread{
 
         }if (resp.startsWith("CHECKMATE")) {
 
-            JOptionPane.showMessageDialog(new JFrame(), resp.split(" ")[2]+" WIN !");
+            JOptionPane.showMessageDialog(new EndGameFrame(), resp.split(" ")[2]+" WIN !");
 
         }if(resp.startsWith("STALEMATE")){
 
-                JOptionPane.showMessageDialog(new JFrame(), "STALEMATE");
+                JOptionPane.showMessageDialog(new EndGameFrame(), "STALEMATE");
 
         }
     }

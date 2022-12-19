@@ -86,7 +86,9 @@ public class ClientHandler extends Thread{
                 output.flush();*/
 
                 System.out.println("BEGIN");
+
                 String req = input.readUTF();
+
                 System.out.println("CLIENT");
                 System.out.println(req);
 
@@ -104,7 +106,9 @@ public class ClientHandler extends Thread{
         boolean flag = false;
 
         String req = request;
+
         output.reset();
+
         try{
             if(req.startsWith("SELECT")){
                 if(getServer().getClients().size()!=2){
@@ -113,8 +117,10 @@ public class ClientHandler extends Thread{
 
                 String[] splitted = req.split("//");
 
+
                 if(splitted.length != 4){
                     throw new WrongRequestException("wrong request");
+
                 }
 
                 Player player = getBoard().getPlayerByColor(Integer.parseInt(splitted[1]));
