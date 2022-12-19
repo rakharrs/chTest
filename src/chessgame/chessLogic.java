@@ -41,7 +41,10 @@ public class chessLogic implements Serializable {
                     if(!isPiece(x, y + (pawnUpDirection*2)) && y == 1 || !isPiece(x, y + (pawnUpDirection*2)) && y == 6){
                         val.add(new Coord2d(x, y + (pawnUpDirection*2)));
                     }
-                    val.add(new Coord2d(x, y + pawnUpDirection));
+                    if(x < 8 && x >= 0 && y + pawnUpDirection < 8 && y + pawnUpDirection >= 0){
+
+                        val.add(new Coord2d(x, y + pawnUpDirection));
+                    }
                 }
 
                 if(isPieceEnemy(x + 1, y + pawnUpDirection, piece))
@@ -197,13 +200,13 @@ public class chessLogic implements Serializable {
         return val;
     }
 
-    public int isCheckmate(PieceColor color){
+    public int isCheckmate(PieceColor color) throws Exception {
         ArrayList<Piece> pieces = getPieces(color);
 
         for(Piece piece : pieces){
             ArrayList<Coord2d> moves = getLegalMove(piece);
-            if(moves.size() > 0){
-                System.out.println("piece "+ piece.getType() + " " + piece.getColor()+" first legal move : "+moves.get(0).getX() + " and "+moves.get(0).getY());
+            if(moves.size() > 0 || getLegalMove(getKing(color)).size() > 0){
+
                 return 1;               // Mbola tsy checkmate fa afaka mitohy ny lalao
             }
         }

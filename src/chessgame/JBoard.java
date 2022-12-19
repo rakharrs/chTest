@@ -490,12 +490,23 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
         if(piece.getType() == PieceType.PAWN){
             if(piece.getColor() == PieceColor.BLACK && Y == 0){
-                piece.setType(PieceType.QUEEN);
-                piece.setTexture(new JChessTexture("assets/img/pieces/bQ.png"));
+                promote(piece, PieceType.QUEEN);
             }else if(piece.getColor() == PieceColor.WHITE && Y == 7){
-                piece.setType(PieceType.QUEEN);
-                piece.setTexture(new JChessTexture("assets/img/pieces/wQ.png"));
+                promote(piece, PieceType.QUEEN);
             }
+        }
+
+    }
+
+    public void promote(Piece piece, PieceType newType){
+        piece.setType(newType);
+        char color = (piece.getColor() == PieceColor.WHITE) ? 'w' : 'b';
+
+        switch (newType){
+            case QUEEN -> piece.setTexture(new JChessTexture("assets/img/pieces/"+color+"Q.png"));
+            case KNIGHT -> piece.setTexture(new JChessTexture("assets/img/pieces/"+color+"N.png"));
+            case ROOK -> piece.setTexture(new JChessTexture("assets/img/pieces/"+color+"R.png"));
+            case BISHOP -> piece.setTexture(new JChessTexture("assets/img/pieces/"+color+"B.png"));
         }
 
     }

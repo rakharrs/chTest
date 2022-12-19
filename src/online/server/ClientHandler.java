@@ -158,6 +158,7 @@ public class ClientHandler extends Thread{
                         }
 
                     }
+                    output.flush();
                     output.reset();
                 }
                 flag = false;

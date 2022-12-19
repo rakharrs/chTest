@@ -82,7 +82,6 @@ public class GameServer implements Runnable{
 
                 System.out.println("handler started");
 
-                //translateRequest(din.readAllBytes());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
