@@ -7,6 +7,8 @@ import chessgame.chessLogic;
 import online.client.Client;
 import online.client.Receiver;
 
+import javax.swing.*;
+
 public interface BoardScene extends Scene{
     chessLogic logic = null;
 
@@ -29,4 +31,5 @@ public interface BoardScene extends Scene{
     public abstract void initPieceCoord();
     public abstract void initPiecesTexture();
     public abstract void receiveChessPiece() throws Exception;
+    public abstract JFrame getFrame();
 }
