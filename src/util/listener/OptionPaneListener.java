@@ -2,7 +2,9 @@ package util.listener;
 
 import chessengine.ChessFrame;
 import util.display.SetAdress;
+import util.display.panel.AddrPostInputForm;
 import util.display.panel.OptionPanel;
+import util.display.panel.PortForm;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -52,16 +54,26 @@ public class OptionPaneListener implements MouseInputListener {
                 break;
             }
             case "HOST"->{
-                ChessFrame.createChess(true, true, "localhost");
+                //ChessFrame.createChess(true, true, "localhost");
+                try {
+                    new PortForm(panel);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
 
-                panel.getFrame().dispose();
+                //panel.getFrame().dispose();
                 break;
             }
             case "CLIENT"->{
                 //ChessFrame.createChess(true, false, "localhost");
-                new SetAdress("Sorato ny ip anle host");
+                //new SetAdress("Sorato ny ip anle host");
+                try {
+                    new AddrPostInputForm(panel);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
 
-                panel.getFrame().dispose();
+                //panel.getFrame().dispose();
                 break;
             }
             case "BACK"->{

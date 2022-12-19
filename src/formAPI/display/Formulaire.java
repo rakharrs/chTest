@@ -76,7 +76,7 @@ public class Formulaire extends JPanel{
 
         for (Field field : fields) {
             Champ champ = Function.getChamp(field);
-            if(field.getType()==Integer.class || field.getType()==Double.class){
+            if(field.getType()==int.class || field.getType()==Integer.class || field.getType()==Double.class){
                 System.out.println("niditra");
                 champ.getComponent().addKeyListener(new NumberListener());
             }

@@ -22,14 +22,12 @@ public class GameServer implements Runnable{
     public GameServer(){
         setPort(port);
         this.board = new JBoard();
-        System.out.println("-----------");
-        System.out.println("|  button  |");
-        System.out.println("-----------");
         setClients(new ArrayList<>());
     }
 
-    public GameServer(int port){
-        setPort(port);
+    public GameServer(int newPort){
+        setPort(newPort);
+        System.out.println(getPort());
         this.board = new JBoard();
         setClients(new ArrayList<>());
     }
@@ -37,7 +35,7 @@ public class GameServer implements Runnable{
     @Override
     public void run() {
         try {
-            server = new ServerSocket(GameServer.port);
+            server = new ServerSocket(getPort());
             PieceColor pc = PieceColor.WHITE;
             /*while(getClients().size() < 2){
 

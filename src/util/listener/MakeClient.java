@@ -1,23 +1,34 @@
 package util.listener;
 
 import chessengine.ChessFrame;
+import formAPI.inc.Mytextfield;
 import util.display.SetAdress;
+import util.display.panel.AddrPostInputForm;
+import util.display.panel.OptionPanel;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
 public class MakeClient implements MouseInputListener {
-    private SetAdress pane;
+    private AddrPostInputForm pane;
+    OptionPanel optionPanel;
 
-    public MakeClient(SetAdress field){
+    public MakeClient(OptionPanel optionPanel, AddrPostInputForm field){
+        setOptionPanel(optionPanel);
         pane = field;
 
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        ChessFrame.createChess(true, false, pane.getInput().getText());
+        Mytextfield textf = (Mytextfield) pane.getForm().getChamps().get(0).getComponent();
+        Mytextfield textPort = (Mytextfield) pane.getForm().getChamps().get(1).getComponent();
 
+        int port = Integer.parseInt(textPort.getText());
+        System.out.println("client port "+port +" et ip : "+ textf.getText());
+        ChessFrame.createChess(true, false, textf.getText(), port);
+
+        getOptionPanel().getFrame().dispose();
         pane.dispose();
     }
 
@@ -49,5 +60,13 @@ public class MakeClient implements MouseInputListener {
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    public OptionPanel getOptionPanel() {
+        return optionPanel;
+    }
+
+    public void setOptionPanel(OptionPanel optionPanel) {
+        this.optionPanel = optionPanel;
     }
 }

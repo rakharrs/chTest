@@ -36,7 +36,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     public boolean flag = false;
 
 
-    public JBoard(JFrame frame, int caseWidth, int caseHeight, boolean online, String hostIp) throws Exception {
+    public JBoard(JFrame frame, int caseWidth, int caseHeight, boolean online, String hostIp, int port) throws Exception {
 
         //index 0 -> black && index 1 -> white
         isFinished = false;
@@ -50,11 +50,14 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
         if(isOnline()){
             try{
 
-                setClient(new Client(hostIp));
+                System.out.println("port : "+port);
+
+                setClient(new Client(hostIp, port));
                 this.receiver = new Receiver(this);
                 receiver.start();
 
             }catch (Exception exc){
+                exc.printStackTrace();
                 JOptionPane.showMessageDialog(new JFrame(), "tsisy host \n Nivadika singleplayer game");
                 setOnline(false);
             }
@@ -466,7 +469,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
     public void receiveChessPiece() throws Exception{
         setLogic((chessLogic) getClient().getInput().readObject());
-        
+
         setShouldInit(true);
 
         initPiecesTexture();

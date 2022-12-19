@@ -7,7 +7,7 @@ public class AddrPostInput {
     int port;
 
     public AddrPostInput(){
-
+        
     }
     public AddrPostInput(String address, int port){
 

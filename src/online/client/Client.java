@@ -23,6 +23,14 @@ public class Client {
         setInput(new ObjectInputStream(getClientSocket().getInputStream()));
     }
 
+    public Client(String ip, int port) throws IOException{
+        setClientSocket(new Socket(ip, port));
+
+        setOutput(new ObjectOutputStream(getClientSocket().getOutputStream()));
+
+        setInput(new ObjectInputStream(getClientSocket().getInputStream()));
+    }
+
     public Socket getClientSocket() {
         return clientSocket;
     }

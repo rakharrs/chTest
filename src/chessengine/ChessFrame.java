@@ -25,7 +25,31 @@ public class ChessFrame extends JFrame implements Runnable{
         setSize(600,600);
         setMaximumSize(new Dimension(600,630));
 
-        setBoard(new JBoard(this, getWidht()/8, getHeight()/8, online, hostip));
+        setBoard(new JBoard(this, getWidht()/8, getHeight()/8, online, hostip, GameServer.port));
+
+
+        BoardInteraction bi = new BoardInteraction(getBoard());
+        getBoard().addMouseListener(bi);
+        getBoard().addMouseMotionListener(bi);
+
+        add(getBoard());
+        //getBoard().setBounds(0, 0, 600, 600);
+
+        setResizable(true);
+        setDefaultCloseOperation(3);
+
+        getBoard().update();
+        getBoard().resetAndInitPiecesTexture();
+        Toolkit.getDefaultToolkit().sync();
+        //loop();
+    }
+    public ChessFrame(boolean online, String hostip, int port) throws Exception{
+        createChessFrame();
+        setLayout(null);
+        setSize(600,600);
+        setMaximumSize(new Dimension(600,630));
+
+        setBoard(new JBoard(this, getWidht()/8, getHeight()/8, online, hostip, port));
 
 
         BoardInteraction bi = new BoardInteraction(getBoard());
@@ -68,6 +92,27 @@ public class ChessFrame extends JFrame implements Runnable{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static ChessFrame createChess(boolean online, boolean host, String hostip, int port){
+        try {
+            if (host && online) {
+                System.out.println("host port "+port);
+                GameServer serv = new GameServer(port);
+                Thread srv = new Thread(serv);
+                srv.start();
+
+                ChessFrame cf = new ChessFrame(online, "localhost", port);
+
+                cf.setTitle(serv.getServer().getInetAddress().getHostAddress());
+                return cf;
+            }
+
+            return new ChessFrame(online, hostip, port);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

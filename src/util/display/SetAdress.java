@@ -14,7 +14,7 @@ public class SetAdress extends JFrame {
         JTextField AddrInput = new JTextField();
         setInput(AddrInput);
         JButton button = new JButton("ok");
-        button.addMouseListener(new MakeClient(this));
+        //button.addMouseListener(new MakeClient(this));
         JPanel jp = new JPanel();
         jp.setLayout(new GridLayout(2,1));
 
