@@ -125,6 +125,7 @@ public class BoardInteraction implements MouseInputListener {
                     getBoard().sendRequest(t);
                 }else{
                     getBoard().turnMove(getBoard().getTurn(),piece , new Coord2d(X, Y));
+
                 }
                 getBoard().resetAndInitPiecesTexture();
 
@@ -139,6 +140,8 @@ public class BoardInteraction implements MouseInputListener {
         System.out.println("Color:  "+getBoard().getLogic().getPiece(X, Y).getColor());
         getBoard().update();
         getBoard().resetAndInitPiecesTexture();
+
+
     }
 
     @Override

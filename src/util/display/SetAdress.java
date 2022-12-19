@@ -40,6 +40,6 @@ public class SetAdress extends JFrame {
     }
 
     public void setInput(JTextField addrInput) {
-        this.input = input;
+        this.input = addrInput;
     }
 }

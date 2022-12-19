@@ -18,9 +18,13 @@ public class GameServer implements Runnable{
     private int portPers;
     boolean full = false;
 
+
     public GameServer(){
         setPort(port);
         this.board = new JBoard();
+        System.out.println("-----------");
+        System.out.println("|  button  |");
+        System.out.println("-----------");
         setClients(new ArrayList<>());
     }
 

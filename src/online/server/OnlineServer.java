@@ -1,12 +1,18 @@
 package online.server;
 
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 
 public class OnlineServer extends Thread{
 
     private ArrayList<GameServer> servers;
     private static InetAddress address;
+
+    ServerSocket server;
 
     public static final int port = 9799;
 
@@ -25,7 +31,19 @@ public class OnlineServer extends Thread{
 
     @Override
     public void run(){
+        try {
+            Socket client = getServer().accept();
 
+            for (int i = 0; i < getServers().size(); i++) {
+                if(!getServers().get(i).full){
+                    client.connect(getServers().get(0).getServer().getLocalSocketAddress());
+
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void initServers(){
@@ -49,5 +67,17 @@ public class OnlineServer extends Thread{
 
     public static InetAddress getAddress() {
         return address;
+    }
+
+    public static void setAddress(InetAddress address) {
+        OnlineServer.address = address;
+    }
+
+    public ServerSocket getServer() {
+        return server;
+    }
+
+    public void setServer(ServerSocket server) {
+        this.server = server;
     }
 }

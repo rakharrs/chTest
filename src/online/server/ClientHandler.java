@@ -127,7 +127,9 @@ public class ClientHandler extends Thread{
 
                 try{
                     board.turnMove(player, movedPiece, target);
+
                     board.initPieceCoord();
+
 
                 }catch (Exception exception){
                     System.out.println(exception);
@@ -139,6 +141,23 @@ public class ClientHandler extends Thread{
 
                     writeUTFtoAll("CHESS-BOARD");
                     writeToAll(getBoard().getLogic());
+
+                    int checkmateBLACK = board.getLogic().isCheckmate(board.getTurn().getPieceColor());
+
+                    if(checkmateBLACK != 1){
+                        if(checkmateBLACK == 0){
+
+                            writeUTFtoAll("CHECKMATE WINNER "+board.getLogic().getOpponentColor(board.getTurn().getPieceColor()).toString());
+
+                            server.getServer().close();
+                        }else if(checkmateBLACK == -1){
+
+                            writeUTFtoAll("STALEMATE");
+
+                            server.getServer().close();
+                        }
+
+                    }
                     output.reset();
                 }
                 flag = false;

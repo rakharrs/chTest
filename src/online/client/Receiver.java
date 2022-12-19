@@ -52,6 +52,14 @@ public class Receiver extends Thread{
             System.out.println("REQUEST ERROR");
             JOptionPane.showMessageDialog(new JFrame(), "An error occured");
 
+        }if (resp.startsWith("CHECKMATE")) {
+
+            JOptionPane.showMessageDialog(new JFrame(), resp.split(" ")[2]+" WIN !");
+
+        }if(resp.startsWith("STALEMATE")){
+
+                JOptionPane.showMessageDialog(new JFrame(), "STALEMATE");
+
         }
     }
 

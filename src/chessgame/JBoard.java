@@ -24,6 +24,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     private Player player2 = new Player("Player2", PieceColor.BLACK); //By default black
 
     Client client;
+    public boolean isFinished = false;
 
     private Player turn = player1;
     private int caseWidth;
@@ -38,6 +39,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     public JBoard(JFrame frame, int caseWidth, int caseHeight, boolean online, String hostIp) throws Exception {
 
         //index 0 -> black && index 1 -> white
+        isFinished = false;
         setFrame(frame);
         setLogic(new chessLogic(new Piece[8][8]));
 
@@ -73,6 +75,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     public JBoard(){
         logic = new chessLogic(new Piece[8][8]);
         initPieces(false);
+        isFinished = false;
         //move(getPieces()[1][0], new Coord2d(0, 2));
 
         setSelectedPiece(null);
@@ -126,14 +129,43 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
 
         checkPromotion(piece, coord);
-        swapTurn();
 
+        swapTurn();
 
     }
 
     public void turnMove(Player player, Piece piece, Coord2d coord) throws Exception {
         if(player == getTurn()){
+
+            //this.initPieceCoord();
+
             move(player, piece, coord);
+
+            this.initPieceCoord();
+
+            if(getFrame() != null){
+                int checkmateBLACK = getLogic().isCheckmate(getTurn().getPieceColor());
+
+                System.out.println("checkmate: " + checkmateBLACK);
+                if(checkmateBLACK != 1){
+                    if(checkmateBLACK == 0){
+
+                        getFrame().setTitle("CHECKMATE "+ getLogic().getOpponentColor(getTurn().getPieceColor()).toString() +" WIN !");
+
+                    }else if(checkmateBLACK == -1){
+
+                        getFrame().setTitle("STALEMATE !");
+                    }
+
+                    isFinished = true;
+
+                }
+
+            }
+
+
+
+
         }
     }
 
@@ -151,7 +183,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
         }
         int caseWith = getCaseWidth();
         int caseHeight = getCaseHeight();
-        ArrayList<Coord2d> moves = getLogic().canAttack(getSelectedPiece().getX(), getSelectedPiece().getY());
+        ArrayList<Coord2d> moves = getLogic().getLegalMove(getSelectedPiece().getX(), getSelectedPiece().getY());
 
         for (int i = 0; i < moves.size(); i++) {
             int x1 = caseWith * moves.get(i).getX();
@@ -181,21 +213,25 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
                 if((i+j)%2==0){
 
-                    if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+                    if(getClient() != null && getClient().getPieceColor()==PieceColor.WHITE){
 
                         g.setColor(Color.WHITE);
-                    }
-
-                    g.setColor(Color.lightGray);
-
-                }else{
-
-                    if(getClient() != null && getClient().getPieceColor()==PieceColor.BLACK){
+                    }else{
 
                         g.setColor(Color.lightGray);
                     }
 
-                    g.setColor(Color.WHITE);
+
+                }else{
+
+                    if(getClient() != null && getClient().getPieceColor()==PieceColor.WHITE){
+
+                        g.setColor(Color.lightGray);
+                    }else{
+
+                        g.setColor(Color.WHITE);
+                    }
+
                 }
 
                 g.fillRect(x1, y1, x2-x1, y2-y1);
@@ -430,8 +466,11 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
     public void receiveChessPiece() throws Exception{
         setLogic((chessLogic) getClient().getInput().readObject());
+        
         setShouldInit(true);
+
         initPiecesTexture();
+
         update();
         //setShouldInit(false);
         //resetAndInitPiecesTexture();
@@ -484,13 +523,18 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     }
     public void update(){
         initPT();
+        //System.out.println(getLogic().isInCheck(PieceColor.BLACK));
         setTurn(getLogic().getTurn().ordinal());
-        getFrame().setTitle("Turn for "+getTurn().getPieceColor().toString());
+
+
+        if(!isFinished){
+
+            getFrame().setTitle("Turn for "+getTurn().getPieceColor().toString());
+        }
 
         repaint();
 
         this.initPieceCoord();
-
     }
 
     public void update(Graphics g){
