@@ -39,7 +39,10 @@ public class chessLogic implements Serializable {
             case PAWN -> {
                 if(!isPiece(x, y + pawnUpDirection)){
                     if(!isPiece(x, y + (pawnUpDirection*2)) && y == 1 || !isPiece(x, y + (pawnUpDirection*2)) && y == 6){
-                        val.add(new Coord2d(x, y + (pawnUpDirection*2)));
+                        if(x < 8 && x >= 0 && y + (pawnUpDirection*2) < 8 && y + (pawnUpDirection*2) >= 0){
+
+                            val.add(new Coord2d(x, y + (pawnUpDirection*2)));
+                        }
                     }
                     if(x < 8 && x >= 0 && y + pawnUpDirection < 8 && y + pawnUpDirection >= 0){
 

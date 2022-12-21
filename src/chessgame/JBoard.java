@@ -475,9 +475,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
         initPiecesTexture();
 
         update();
-        //setShouldInit(false);
-        //resetAndInitPiecesTexture();
-        //initPiecesTexture();
+
     }
 
     public void setTurn(int turnColor){

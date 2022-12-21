@@ -29,6 +29,8 @@ public class Receiver extends Thread{
 
         }catch (Exception e){
             System.out.println(e);
+            JOptionPane.showMessageDialog(new JFrame(),"disconnected !");
+            new FrameMenu();
             e.printStackTrace();
         }
     }

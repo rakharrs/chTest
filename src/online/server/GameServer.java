@@ -37,9 +37,6 @@ public class GameServer implements Runnable{
         try {
             server = new ServerSocket(getPort());
 
-            /*while(getClients().size() < 2){
-
-            }*/
             System.out.println("ok");
 
                 System.out.println("Waiting Connection");
