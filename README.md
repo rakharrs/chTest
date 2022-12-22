@@ -22,7 +22,7 @@ Version JFrame de jeu d'échec avec multi
   
 - Changement
   - gameloop retiré donc l'affichage n'est plus automatique rechargé en 30frames/s
-  - affichage mreload rehefa misy action mitranga fa tsy boucle intsony
+  - affichage mreload rehefa misy action mitranga fa tsy boucle infini intsony
 
 - Fanamarihana
   - mety misy bug le affichagenle texture amin'ny linux fa bug nitranga tamin'ny navadiko swing ilay jeu dia mbola tsy voahitsy (opengl nanaovako an'ity jeu ity tamin'ny voalohany)
