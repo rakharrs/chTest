@@ -24,6 +24,30 @@ public class JChessTexture implements Serializable, MyTexture{
         //initTexture();
     }
 
+    @Override
+    public void drawImage(Graphics g, int width, int height){
+        drawImage(g, getX(), getY(), width, height);
+    }
+
+    @Override
+    public void drawImage(Graphics g, int x, int y, int width, int height){
+        Image bi = null;
+
+        try {
+            bi = ImageIO.read(new File(getImgPath()));
+            g.drawImage(bi, x, y, width, height, null);
+        } catch (IOException e) {
+
+        }
+    }
+
+// Fonction nilaina t@ version OpenGL
+    @Override
+    public void draw(int width, int height){
+        draw(getX(), getY(), width, height);
+
+    }
+    @Override
     public void initTexture(){
         if(imgPath.equals("") || isInitiated()){
             //System.out.println(imgPath);
@@ -58,31 +82,11 @@ public class JChessTexture implements Serializable, MyTexture{
         }*/
         initiated = true;
     }
-
-    public void drawImage(Graphics g, int x, int y, int width, int height){
-        Image bi = null;
-
-        try {
-            bi = ImageIO.read(new File(getImgPath()));
-            g.drawImage(bi, x, y, width, height, null);
-        } catch (IOException e) {
-
-        }
-        //ImageIcon image = new ImageIcon(bi.getScaledInstance(width,height,width));
-
-        //System.out.println(image.getIconHeight());
-    }
-
     public void draw(int x, int y, int width, int height){
 
     }
-    public void draw(int width, int height){
-        draw(getX(), getY(), width, height);
 
-    }
-    public void drawImage(Graphics g, int width, int height){
-        drawImage(g, getX(), getY(), width, height);
-    }
+////
 
     public int getChannel() {
         return channel;

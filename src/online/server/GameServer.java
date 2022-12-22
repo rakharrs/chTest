@@ -4,6 +4,7 @@ import chessgame.JBoard;
 import chessgame.PieceColor;
 import util.BoardScene;
 
+import javax.swing.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class GameServer implements Runnable{
 
 
                 System.out.println("handler started");
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);

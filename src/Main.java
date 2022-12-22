@@ -4,13 +4,13 @@ import util.display.FrameMenu;
 import util.display.SetAdress;
 import util.display.panel.AddrPostInputForm;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) throws  Exception{
         System.setProperty("sun.java2d.opengl", "true");
 
-        //new AddrPostInputForm();
         new FrameMenu();
     }
 }

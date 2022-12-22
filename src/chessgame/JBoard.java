@@ -18,7 +18,6 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     private boolean online;
     private boolean shouldInit = false;
     private Coord2d selectedPiece = null;
-    //Texture background = new Texture("assets/img/menu/chessimg.png");
 
     private Player player1 = new Player("Player1", PieceColor.WHITE); //By default white
     private Player player2 = new Player("Player2", PieceColor.BLACK); //By default black
@@ -26,11 +25,11 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     Client client;
     public boolean isFinished = false;
 
-    private Player turn = player1;
+    private Player turn = player1;                                              //By default player - 1
     private int caseWidth;
     private int caseHeight;
 
-    private Receiver receiver;
+    private Receiver receiver;                                                  // Class mihaino anze message tonga ato amnle client
     JFrame frame;
 
     public boolean flag = false;
@@ -63,7 +62,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
             }
         }
 
-        initPieces(true);
+        initPieces();
         initPiecesTexture();
 
 
@@ -77,9 +76,8 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
     public JBoard(){
         logic = new chessLogic(new Piece[8][8]);
-        initPieces(false);
+        initPieces();
         isFinished = false;
-        //move(getPieces()[1][0], new Coord2d(0, 2));
 
         setSelectedPiece(null);
     }
@@ -95,7 +93,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
 
     }
-    public void forceMove(Piece piece, Coord2d coord) throws  Exception{
+    public void forceMove(Piece piece, Coord2d coord){
 
         getPieces()[coord.getX()][coord.getY()] = piece;
         System.out.println(piece.getX() + "&& " + piece.getY());
@@ -139,8 +137,6 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
     public void turnMove(Player player, Piece piece, Coord2d coord) throws Exception {
         if(player == getTurn()){
-
-            //this.initPieceCoord();
 
             move(player, piece, coord);
 
@@ -250,19 +246,19 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
         }
     }
 
-    public void initPieces(boolean wTexture){
+    public void initPieces(){
         for (int i = 0; i < 8; i++) {
             for (int j = 2; j <= 5; j++) {
                 getPieces()[i][j] = new Piece(PieceColor.UNSET, PieceType.NONE, "");
             }
         }
-        initBlack(wTexture);
-        initWhite(wTexture);
+        initBlack();
+        initWhite();
         initPieceCoord();
     }
 
-    public void initBlack(boolean wTexture){
-        initBlackPawns(wTexture);
+    public void initBlack(){
+        initBlackPawns();
 
             getPieces()[0][7] = new Piece(PieceColor.BLACK, PieceType.ROOK,"assets/img/pieces/bR.png");
             getPieces()[7][7] = new Piece(PieceColor.BLACK, PieceType.ROOK,"assets/img/pieces/bR.png");
@@ -277,8 +273,8 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
             getPieces()[4][7] = new Piece(PieceColor.BLACK, PieceType.KING,"assets/img/pieces/bK.png");
     }
 
-    public void initWhite(boolean wTexture){
-        initWhitePawns(wTexture);
+    public void initWhite(){
+        initWhitePawns();
 
             getPieces()[0][0] = new Piece(PieceColor.WHITE, PieceType.ROOK,"assets/img/pieces/wR.png");
             getPieces()[7][0] = new Piece(PieceColor.WHITE, PieceType.ROOK,"assets/img/pieces/wR.png");
@@ -294,7 +290,7 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
 
     }
 
-    public void initBlackPawns(boolean wTexture){
+    public void initBlackPawns(){
         for (int i = 0; i < getPieces().length; i++) {
                 getPieces()[i][6]=new Piece(PieceColor.BLACK, PieceType.PAWN, "assets/img/pieces/bP.png");
 
@@ -303,13 +299,13 @@ public class JBoard extends JPanel implements Serializable, BoardScene {
     public void initPiecesTexture(){
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                //getPieces()[i][j].initTexture();
+
                 getPieces()[i][j].getTexture().initTexture();
             }
         }
     }
 
-    public void initWhitePawns(boolean wTexture){
+    public void initWhitePawns(){
         for (int i = 0; i < getPieces().length; i++) {
                 getPieces()[i][1]=new Piece(PieceColor.WHITE, PieceType.PAWN, "assets/img/pieces/wP.png");
 
