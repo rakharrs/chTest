@@ -26,5 +26,11 @@ Version JFrame de jeu d'échec avec multi
 
 - Fanamarihana
   - mety misy bug le affichagenle texture amin'ny linux fa bug nitranga tamin'ny navadiko swing ilay jeu dia mbola tsy voahitsy (opengl nanaovako an'ity jeu ity tamin'ny voalohany)
+  
+   - Ny fandehan'ilay mode multiplayer dia toy izao:
+      - ny client tsirairay avy dia mandefa requete any amin'ny serveur rehefa manao action, koa ny serveur no mandika an'iny requete iny hoe inona no tokony atao arakarak'ilay requete, ohatra (manetsika piece ilay client -> mandefa message [("select//*lokon'ilay joueur*//*coordonnées an'ilay piece tiany ahetsika*//*coordonnées tiny ahetsehina azy*")] -> miezaka manetsika an'ilay piece ilay serveur dia raha mety dia ahetsiny avy eo averiny any amin'ny clients rehetra (roa) ny echiquier vaovao (tableau de pieces & couleur tokony milalao (fotsy sa mainty) ))
+      - ary koa ny client manana thread mitokana mihaino an'izay reponse sy mamaly na manao asa arakarak'iny reponse iny
+      
+      
 
 $chessV-jframe = version jframe$
